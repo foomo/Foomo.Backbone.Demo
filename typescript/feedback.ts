@@ -1,75 +1,63 @@
-module Demo {
-	
-	import Behaviours = Backbone.Components.Behaviours;
-	import Components = Backbone.Components;
-	import Controls = Backbone.Components.Controls;
-	
-	export class SimpleModel extends Backbone.Model {
-		public feedback:Behaviours.FeedbackModel;
-		constructor(defaults?) {
-			super(defaults);
-			this.feedback = new Behaviours.FeedbackModel;
-			this.on('change', this.test, this);
-		}
-		test() {
-			var foo = this.get('foo');
-			if(foo.length == 0) {
-				this.feedback.giveFeedback(
-					'foo',
-					'must not be empty',
-					Behaviours.Feedback.LEVEL_ERROR
-				);
-			} else {
-				this.feedback.giveFeedback(
-					'foo',
-					'',
-					Behaviours.Feedback.LEVEL_OK
-				);
+// some imports
 
-			}
-		}
-		default() {
-			return {
-				foo:'Hello',
-				bar: '',
-				options: ['a', 'b', 'c']
-			};
-		}
+import Behaviours = Backbone.Components.Behaviours;
+import Components = Backbone.Components;
+import Controls = Backbone.Components.Controls;
+import Validation = Backbone.Components.Behaviours.Validation;
+import Validators = Backbone.Components.Behaviours.Validation.Validators;
 
+class SimpleModel extends Backbone.Model {
+	/**
+	 * the idea is to attach a model for feedback and the run validation,
+	 * which give feedback to it
+	 */
+	public feedback:Behaviours.FeedbackModel;
+	constructor() {
+		this.feedback = new Behaviours.FeedbackModel;
+		super();
 	}
+	set() {
+		// force custom auto validation
+		var ret = super.set.apply(this, arguments);
+		this.customValidate();
+	}
+	customValidate() {
+		return Validation.Validator.create(this, this.feedback)
+			.chain(
+				// validate the attributes name, zip with the empty validator
+				Validators.EmptyValidator.pack('name', 'zip'),
+				// configure the length validator and use it on name
+				Validators.LengthValidator.pack(4, 8, 'name'),
+				// configure the length validator and use it on zip
+				Validators.LengthValidator.pack(5, 5, 'zip')
+			)
+			?null:'aaaaa'
+		;
+	}
+}
 
-	export class SimpleView extends Backbone.View {
-		model: SimpleModel;
-		components: {
-			inputFoo?:Controls.Input;
-			selectBar?:Controls.Select;
-			displayFoo?:Components.Display;
-		};
-		constructor(options) {
-			super(options);
-			this.model = new SimpleModel();
-			// this.setElement($('body'));
-			this.$el.html(options.template({}));
-			this.components = Backbone.Components.mapToView(this, [
-				Components.Display.map('h1'),
-				Components.Display.mapWithFilter('div span.filter-object', (data:any) => {
-					var ret = '- not set -';
-					_.each(this.model.get('options'), (option:{value:any; label:string;}) => {
-						if(data == option.value) {
-							ret = option.label;
-						}
-					});
-					return ret;
-				}),
-				Controls.Input.map('div')
-					.addBehaviour(Controls.Behaviours.TypeToChange.factory)
-					.addBehaviour(Behaviours.ComponentFeedback.getFactory(this.model.feedback))
-				,
-				Controls.Select.mapWithOptionsFrom('div', this.model, 'options')
-			]);
-			this.components.displayFoo.filter = (data:any) => {
-				return data?data:'--<b>hhh</b>--';
-			}
+class FeedbackView extends Backbone.View {
+	model: SimpleModel;
+	constructor(options) {
+		// boilerplate
+		super(options);
+		this.model = new SimpleModel();
+		this.$el.html(options.template({}));
+
+		// "localize" messages
+		Validators.EmptyValidator.MESSAGES = {
+			OK : 'awesome',
+			MUST_NOT_BE_EMPTY : 'do not leave me empty'
 		}
-	}	
+
+		// map components with behaviours
+		Backbone.Components.mapToView(this, [
+			Components.Display.map('span'),
+			Controls.Input.map('.controlWithFeedback')
+				// fire changes, as we type
+				.addBehaviour(Controls.Behaviours.TypeToChange.factory)
+				// add feedback behaviour
+				.addBehaviour(Behaviours.ComponentFeedback.getFactory(this.model.feedback))
+		]);
+	}
 }

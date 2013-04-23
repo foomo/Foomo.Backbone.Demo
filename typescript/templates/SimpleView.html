@@ -1,7 +1,11 @@
-
 <div>
     <label>Say Hello to</label>
-    <input  name="name">
+    <!--
+        the name of a form field is mapped to the corresponding property of the model
+        by default this is a two way binding
+     -->
+    <input name="name">
 </div>
 
+<!-- to map a models attribute to an arbitrary element use data-model-attr -->
 <h1>Hello <span data-model-attr="name">...</span>!</h1>

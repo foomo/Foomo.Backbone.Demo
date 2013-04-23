@@ -1,17 +1,44 @@
-<h1 id="displayFoo" data-model-attr="foo">....</h1>
+<div id="inputName" class="controlWithFeedback">
+    <label>Say Hello to</label>
+    <!--
+        the name of a form field is mapped to the corresponding property of the model
+        by default this is a two way binding
+     -->
+    <input name="name">
+    <!--
+        get some feedback to your input
+    -->
+    <ol class="feedback">
+        <!--
+            if you add one element to the feedback element, then it will be used as a template for
+            multiple entries
+        -->
+        <li class="myError">
+            <h4 class="label-info">info</h4>
+            <h4 class="label-error">error</h4>
+            <!--
+                the class .feedback-text marks the placeholder for the feedback text
+            -->
+            <pre class="feedback-text"></pre>
+        </li>
+    </ol>
 
-<div id="inputFoo">
-    <input  name="foo">
-    <div class="feedback"></div>
 </div>
 
-<div id="selectBar">
-    <label>
-        Ihre auswahl
-        <span class="filter-object" data-model-attr="bar">
-            hkhkhkj
-        </span>
-    </label>
-    <select  name="bar"></select>
+<!-- to map a models attribute to an arbitrary element use data-model-attr -->
+<h1>Hello <span data-model-attr="name">...</span>!</h1>
+
+<div class="controlWithFeedback">
+    <label>Zip</label>
+    <!--
+        the name of a form field is mapped to the corresponding property of the model
+        by default this is a two way binding
+     -->
+    <input name="zip">
+    <!--
+        get some feedback to your input
+    -->
     <div class="feedback"></div>
+
 </div>
+

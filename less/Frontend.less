@@ -18,6 +18,25 @@ body {
 	.feedback-error {
 		color:red;
 	}
+	.feedback-info {
+		color:white;
+		background-color: deepskyblue;
+	}
+
+	li.myError {
+		&.feedback-info {
+			.label-error {
+				display:none;
+			}
+		}
+		&.feedback-error {
+			.label-info {
+				display:none;
+			}
+		}
+
+	}
+
 	.tagEditor {
 		background-color: grey;
 	}

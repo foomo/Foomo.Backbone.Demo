@@ -53,8 +53,16 @@ class Controller
 		foreach(
 			array(
 				'simple' => array(
-					'description' => 'A simple thingie',
-					'label' => 'Simple'
+					'description' => 'Shows a full round trip from input to model to display in view.',
+					'label' => 'Hello Components!'
+				),
+				'myComps' => array(
+					'description' => 'Get component instances from the mapper.',
+					'label' => 'These are Mine'
+				),
+				'feedback' => array(
+					'description' => 'A pattern to handle feedback for your controls',
+					'label' => 'Feedback'
 				)
 			) as $name => $data
 		) {
@@ -67,7 +75,7 @@ class Controller
 			$this->model->demos[$demo->name] = $demo;
 		}
 		if($current) {
-			$this->model->demo = $this->model->demos[$name];
+			$this->model->demo = $this->model->demos[$current];
 		}
 	}
 }

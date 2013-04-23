@@ -24,7 +24,7 @@ $getHeight = function($code) use($view) {
 
 		<div class="row-fluid">
 			<h3>App</h3>
-			<div id="demoApp<?= ucfirst($demo->name) ?>" class="container well well-small span9"></div>
+			<div class="demo" id="demoApp<?= ucfirst($demo->name) ?>" class="container well well-small span9"></div>
 			<script>
 				$(document).ready(function() {
 					window.demo<?= ucfirst($demo->name) ?> = new <?= ucfirst($demo->name) ?>View({el:$('#demoApp<?= ucfirst($demo->name) ?>'), template:_.template(<?= json_encode($demo->template) ?>)});
