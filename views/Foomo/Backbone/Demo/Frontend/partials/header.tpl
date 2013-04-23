@@ -2,6 +2,17 @@
 
 /* @var $model Foomo\Backbone\Demo\Frontend\Model */
 /* @var $view Foomo\MVC\View */
+$debug = true;
+\Foomo\HTMLDocument::getInstance()->addStylesheets(array(
+	Foomo\Less::create(Foomo\Backbone\Demo\Module::getBaseDir('less') . DIRECTORY_SEPARATOR . 'Frontend.less')
+		->watch($debug)
+		->compress(!$debug)
+		->compile()
+		->getOutputPath(),
+	Foomo\Backbone\Demo\Module::getHtdocsPath('bootstrap/css/' . ($debug?'bootstrap':'bootstrap.min') . '.css'),
+	Foomo\Backbone\Demo\Module::getHtdocsPath('bootstrap/css/' . ($debug?'bootstrap-responsive':'bootstrap-responsive.min') . '.css'),
+));
+
 
 ?><div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
@@ -31,6 +42,9 @@
 		<div class="span3">
 			<div class="well sidebar-nav">
 				<ul class="nav nav-list">
+					<? foreach($model->demos as $demo): ?>
+						<li><a href="#<?= $demo->name ?>" title="<?= $view->escape($demo->description) ?>"><?= $view->escape($demo->label) ?></a></li>
+					<? endforeach; ?>
 				</ul>
 			</div><!--/.well -->
 		</div><!--/span-->

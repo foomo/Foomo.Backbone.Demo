@@ -17,24 +17,34 @@
  * the foomo Opensource Framework. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Foomo\Backbone\Demo\Frontend;
-
-use Foomo\Backbone\Demo\Vo\Demo;
-
+namespace Foomo\Backbone\Demo\Vo;
+ 
 /**
  * @link www.foomo.org
  * @license www.gnu.org/licenses/lgpl.txt
  * @author jan
  */
-class Model
-{
+ 
+class Demo {
 	/**
-	 * @var Demo[]
+	 * @var string
 	 */
-	public $demos = array();
+	public $name;
 	/**
-	 * @var Demo
+	 * @var string
 	 */
-	public $demo;
+	public $label;
+	/**
+	 * @var string
+	 */
+	public $description;
+	/**
+	 * @var string
+	 */
+	public $template;
+	/**
+	 * @var string
+	 */
+	public $code;
 
 }

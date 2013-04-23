@@ -44,15 +44,6 @@ class Router extends \Foomo\Router {
 	{
 		$doc = \Foomo\HTMLDocument::getInstance();
 		// less
-		$doc->addStylesheets(array(
-			Less::create(Module::getBaseDir('less') . DIRECTORY_SEPARATOR . 'Frontend.less')
-				->watch($debug)
-				->compress(!$debug)
-				->compile()
-				->getOutputPath(),
-			Module::getHtdocsPath('bootstrap/css/' . ($debug?'bootstrap':'bootstrap.min') . '.css'),
-			Module::getHtdocsPath('bootstrap/css/' . ($debug?'bootstrap-responsive':'bootstrap-responsive.min') . '.css'),
-		));
 		// backbone
 		$doc->addJavascripts(array(
 			\Foomo\JS::create(\Foomo\Backbone\Module::getHtdocsDir('js') . DIRECTORY_SEPARATOR . 'bootstrap.js')
@@ -65,21 +56,20 @@ class Router extends \Foomo\Router {
 				->compile()
 				->getOutputPath()
 			,
-			\Foomo\TypeScript::create(\Foomo\Backbone\Module::getBaseDir('typescript') . DIRECTORY_SEPARATOR . 'demo.ts')
+			\Foomo\TypeScript::create(\Foomo\Backbone\Demo\Module::getBaseDir('typescript') . DIRECTORY_SEPARATOR . 'demos.ts')
 				->displayCompilerErrors()
 				->compile()
 				->getOutputPath()
 
 		));
-		// bootstrap
 	}
 	public static function run()
 	{
 		self::setupDoc();
 		URLHandler::strictParameterHandling(true);
 		URLHandler::exposeClassId(false);
-		MVC::hideScript(true);
+		MVC::hideScript(false);
 		$router = new self();
-		return AppRunner::run($router->app, $router, '');
+		return AppRunner::run($router->app, $router);
 	}
 }
