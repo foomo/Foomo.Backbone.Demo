@@ -1,7 +1,6 @@
 // some imports
 
 import Behaviours = Backbone.Components.Behaviours;
-import Components = Backbone.Components;
 import Controls = Backbone.Components.Controls;
 import Validation = Backbone.Components.Behaviours.Validation;
 import Validators = Backbone.Components.Behaviours.Validation.Validators;
@@ -52,7 +51,7 @@ class FeedbackView extends Backbone.View {
 
 		// map components with behaviours
 		Backbone.Components.mapToView(this, [
-			Components.Display.map('span'),
+			Backbone.Components.Display.map('span'),
 			Controls.Input.map('.controlWithFeedback')
 				// fire changes, as we type
 				.addBehaviour(Controls.Behaviours.TypeToChange.factory)

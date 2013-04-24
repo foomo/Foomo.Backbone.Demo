@@ -43,6 +43,9 @@ class Router extends \Foomo\Router {
 	private static function setupDoc($debug = true)
 	{
 		$doc = \Foomo\HTMLDocument::getInstance();
+
+		\Foomo\Jasmine::addToDoc($doc);
+
 		// less
 		// backbone
 		$doc->addJavascripts(array(
@@ -56,17 +59,24 @@ class Router extends \Foomo\Router {
 				->compile()
 				->getOutputPath()
 			,
+
 			\Foomo\TypeScript::create(\Foomo\Backbone\Demo\Module::getBaseDir('typescript') . DIRECTORY_SEPARATOR . 'demos.ts')
 				->displayCompilerErrors()
+				->addOutputFilter(
+					function($output) {
+						return str_replace('var Backbone;', '//var Backbone; <-- fucking fixed ot for FUCKING IE 8 ... FUCK!', $output);
+					}
+				)
 				->compile()
 				->getOutputPath()
+			,
 
 		));
 	}
 	public static function run()
 	{
 		self::setupDoc();
-		URLHandler::strictParameterHandling(true);
+		// URLHandler::strictParameterHandling(true);
 		URLHandler::exposeClassId(false);
 		MVC::hideScript(false);
 		$router = new self();

@@ -28,6 +28,7 @@ use Foomo\Backbone\Demo\Vo\Demo;
  */
 class Model
 {
+	public $page = '';
 	/**
 	 * @var Demo[]
 	 */

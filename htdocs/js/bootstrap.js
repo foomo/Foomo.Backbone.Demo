@@ -1,0 +1,1 @@
+@include('../bootstrap/js/bootstrap.js');

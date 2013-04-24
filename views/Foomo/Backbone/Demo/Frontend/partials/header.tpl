@@ -14,38 +14,27 @@ $debug = true;
 ));
 
 
-?><div class="navbar navbar-inverse navbar-fixed-top">
-	<div class="navbar-inner">
-		<div class="container-fluid">
-			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="brand" href="#">Backbone.Components</a>
-			<div class="nav-collapse collapse">
-				<p class="navbar-text pull-right">
-					&nbsp;
-				</p>
-				<ul class="nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#contact">Contact</a></li>
-				</ul>
-			</div><!--/.nav-collapse -->
-		</div>
-	</div>
-</div>
+?>
+<div class="container-narrow">
 
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span3">
-			<div class="well sidebar-nav">
-				<ul class="nav nav-list">
+	<div class="masthead">
+		<div class="pull-left">
+			<h3 class="muted">Backbone.Components</h3>
+			<div>
+				<ul>
 					<? foreach($model->demos as $demo): ?>
-						<li><a href="#<?= $demo->name ?>" title="<?= $view->escape($demo->description) ?>"><?= $view->escape($demo->label) ?></a></li>
+						<li><?= $view->link($demo->label, 'demo', array($demo->name), array('title' => $view->escape(trim(strip_tags($demo->description))))) ?></li>
 					<? endforeach; ?>
 				</ul>
-			</div><!--/.well -->
-		</div><!--/span-->
-		<div class="span9">
+			</div>
+		</div>
+		<ul class="nav nav-pills pull-right">
+			<li class="<?= $model->page=='default'?'active':'' ?>"><?= $view->link('Home') ?></li>
+			<li class="<?= $model->page=='demo'?'active':'' ?>"><?= $view->link('Demos', 'demo') ?></li>
+		</ul>
+		<div class="clearfix"></div>
+	</div>
+
+	<hr>
+
+	<div class="row-fluid">

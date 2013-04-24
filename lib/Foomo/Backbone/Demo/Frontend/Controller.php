@@ -21,6 +21,8 @@ namespace Foomo\Backbone\Demo\Frontend;
 
 use Foomo\Backbone\Demo\Vo\Demo;
 use Foomo\Backbone\Demo\Module;
+use Foomo\MVC;
+use Foomo\SimpleData;
 
 /**
  * @link www.foomo.org
@@ -37,6 +39,7 @@ class Controller
 	public $model;
 	public function actionDefault()
 	{
+		$this->model->page = 'default';
 		$this->loadDemos();
 	}
 	public function actionTemplate($name)
@@ -47,35 +50,29 @@ class Controller
 	{
 		$this->loadDemos($name);
 	}
+	public function actionDemo($name = '')
+	{
+		$this->model->page = 'demo';
+		$this->loadDemos($name);
+	}
 	private function loadDemos($current = null)
 	{
 		$tsDir = Module::getBaseDir('typescript');
-		foreach(
-			array(
-				'simple' => array(
-					'description' => 'Shows a full round trip from input to model to display in view.',
-					'label' => 'Hello Components!'
-				),
-				'myComps' => array(
-					'description' => 'Get component instances from the mapper.',
-					'label' => 'These are Mine'
-				),
-				'feedback' => array(
-					'description' => 'A pattern to handle feedback for your controls',
-					'label' => 'Feedback'
-				)
-			) as $name => $data
-		) {
-			$demo = new Demo();
-			$demo->name = $name;
-			$demo->label = $data['label'];
-			$demo->description = $data['description'];
-			$demo->code = file_get_contents($tsDir . DIRECTORY_SEPARATOR .  $name . '.ts');
-			$demo->template = file_get_contents($tsDir . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . ucfirst($name) . 'View.html');
+		$rawData = array();
+		foreach(SimpleData::read(\Foomo\Backbone\Demo\Module::getBaseDir('simpleData'))->data as $name => $data) {
+			$rawData[$name] = SimpleData\VoMapper::map($data, new Demo);
+		}
+		foreach($rawData as $demo) {
+			$demo->description = file_get_contents($demo->description);
+			$demo->code = file_get_contents($tsDir . DIRECTORY_SEPARATOR .  $demo->name . '.ts');
+			$demo->template = file_get_contents($tsDir . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . ucfirst($demo->name) . 'View.html');
 			$this->model->demos[$demo->name] = $demo;
 		}
-		if($current) {
-			$this->model->demo = $this->model->demos[$current];
+		if(!$current) {
+			$keys = array_keys($this->model->demos);
+			$current = $keys[0];
+			// MVC::redirect('demo', array($current));
 		}
+		$this->model->demo = $this->model->demos[$current];
 	}
 }
