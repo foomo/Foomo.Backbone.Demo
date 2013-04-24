@@ -1,3 +1,37 @@
+.blink(@count) {
+	-webkit-animation: blink .75s linear;
+	-moz-animation: blink .75s linear;
+	-ms-animation: blink .75s linear;
+	-o-animation: blink .75s linear;
+	animation: blink .75s linear;
+	animation-iteration-count: @count;
+	-webkit-animation-iteration-count:@count;
+	.params() {
+		0% { opacity: 1; }
+		50% { opacity: 0.5; }
+		50.01% { opacity: 0.5; }
+		100% { opacity: 0; }
+	}
+	@-webkit-keyframes blink {
+		.params();
+	}
+	@-moz-keyframes blink {
+		.params();
+	}
+	@-ms-keyframes blink {
+		.params();
+	}
+	@-o-keyframes blink {
+		.params();
+	}
+	@keyframes blink {
+		.params();
+	}
+}
+
+
+
+
 body {
 	padding-top: 20px;
 	padding-bottom: 40px;
@@ -41,6 +75,36 @@ body {
 	}
 }
 
+
+#demoAppList {
+	ul {
+		margin:0;
+		padding:0;
+		li {
+			list-style-type: none;
+			width: 200px;
+			height: 30px;
+			border: 1px solid;
+			margin: 5px;
+			padding: 5px;
+
+			// yes i know there is nth-child ...
+			&.even {
+				background-color: white;
+			}
+			&.odd {
+				background-color: #d3d3d3;
+			}
+			span {
+				float: left;
+			}
+			a {
+				float:right;
+			}
+		}
+	}
+}
+
 .page {
 	.intro {
 		padding-bottom:20px;
@@ -51,38 +115,36 @@ body {
 		width: 100%;
 		border: 5px red solid;
 		padding:10px;
-		.feedback-error {
-			color:red;
-		}
-		.feedback-info {
-			color:white;
-			background-color: deepskyblue;
-		}
-
-		li.myError {
-			&.feedback-info {
-				.label-error {
-					display:none;
-				}
-			}
+		.controlWithFeedback {
 			&.feedback-error {
-				.label-info {
-					display:none;
+				label {
+					color: red;
+					.blink(5);
+				}
+			}
+			.feedback-error {
+				color:red;
+			}
+			.feedback-info {
+				color:white;
+				background-color: deepskyblue;
+			}
+
+			li.myError {
+				&.feedback-info {
+					.label-error {
+						display:none;
+					}
+				}
+				&.feedback-error {
+					.label-info {
+						display:none;
+					}
 				}
 			}
 		}
 
-		.tagEditor {
-			background-color: grey;
-		}
-		.tagEditor ul li {
-			list-style:none;
-			border: 1px solid black;
-			background-color: white;
-			width: 100px;
-			padding:10px;
-			margin:10px;
-			cursor: pointer;
-		}
+
+
 	}
 }

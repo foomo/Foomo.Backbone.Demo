@@ -16,8 +16,8 @@ $getHeight = function($code) use($view) {
 	return $view->escape((count(explode(PHP_EOL, $code)) + 2) * 15.5);
 };
 
-
-
+$model->demo->code = file_get_contents($model->demo->code);
+$model->demo->template = file_get_contents($model->demo->template);
 ?>
 <?= $view->partial('header') ?>
 <div class="clearfix"></div>

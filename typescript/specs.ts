@@ -1,5 +1,6 @@
 module Demo.Specs {
 	import MyControls = Backbone.Components.Controls;
+	import Behaviours = Backbone.Components.Behaviours;
 	export var specifySimple = function() {
 		describe("A suite", function() {
 			it("is it hansi?", function() {
@@ -70,11 +71,6 @@ module Demo.Specs {
 				expect(view.$('select').val()).toBe('y');
 				expect(view.model.get('test')).toBe('y');
 			});
-
-
-				//expect(view.$('select option').length).toBe(3);
-//				expect(view.$('select').val()).toBe('b');
-
 		});
 	}
 	export var specifyFeedback = function() {
@@ -95,6 +91,13 @@ module Demo.Specs {
 				expect($(listEl.children()[0]).find('pre.feedback-text').text()).toBe('awesome');
 				expect($(listEl.children()[1]).find('pre.feedback-text').text()).toBe('ok');
 			});
+			it('attaches the feedback class to the controls top level element', function() {
+				view.$('input[name=name]').val('').change();
+				expect(view.$('#inputName').hasClass(Behaviours.Feedback.LEVEL_ERROR)).toBe(true);
+			});
 		});
-	}
+	};
+	export var specifyList = function() {
+
+	};
 }

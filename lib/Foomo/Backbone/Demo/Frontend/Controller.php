@@ -55,6 +55,11 @@ class Controller
 		$this->model->page = 'demo';
 		$this->loadDemos($name);
 	}
+	public function actionTestAll()
+	{
+		$this->model->page = 'test';
+		$this->loadDemos();
+	}
 	private function loadDemos($current = null)
 	{
 		$tsDir = Module::getBaseDir('typescript');
@@ -64,8 +69,8 @@ class Controller
 		}
 		foreach($rawData as $demo) {
 			$demo->description = file_get_contents($demo->description);
-			$demo->code = file_get_contents($tsDir . DIRECTORY_SEPARATOR .  $demo->name . '.ts');
-			$demo->template = file_get_contents($tsDir . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . ucfirst($demo->name) . 'View.html');
+			$demo->code = $tsDir . DIRECTORY_SEPARATOR .  $demo->name . '.ts';
+			$demo->template = $tsDir . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . ucfirst($demo->name) . 'View.html';
 			$this->model->demos[$demo->name] = $demo;
 		}
 		if(!$current) {

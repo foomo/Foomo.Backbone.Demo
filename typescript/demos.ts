@@ -8,6 +8,7 @@
 
 ///<reference path='simple.ts' />
 ///<reference path='myComps.ts' />
+///<reference path='list.ts' />
 ///<reference path='feedback.ts' />
 ///<reference path='select.ts' />
 ///<reference path='specs.ts' />

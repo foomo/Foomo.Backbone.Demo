@@ -31,6 +31,7 @@ $debug = true;
 		<ul class="nav nav-pills pull-right">
 			<li class="<?= $model->page=='default'?'active':'' ?>"><?= $view->link('Home') ?></li>
 			<li class="<?= $model->page=='demo'?'active':'' ?>"><?= $view->link('Demos', 'demo') ?></li>
+			<li class="<?= $model->page=='test'?'active':'' ?>"><?= $view->link('Test', 'testAll') ?></li>
 		</ul>
 		<div class="clearfix"></div>
 	</div>
