@@ -27,7 +27,7 @@ class ListView extends Backbone.View {
 		this.model = new Backbone.Model();
 		Backbone.Components.mapToView(this,[
 			// list magic
-			Backbone.Components.List.map('ul', ListItemView, 'testItems')
+			Backbone.Components.List.map('ul', ListItemView)
 				.addBehaviour(Backbone.Components.Behaviours.ListItemEventHandler.getFactory('delete', (itemValue) => {
 					this.model.set('testItems', _.without(_.clone(this.model.get('testItems')), itemValue));
 					if(this.model.get('testItems').length == 0) {
