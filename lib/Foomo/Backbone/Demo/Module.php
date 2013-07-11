@@ -28,7 +28,7 @@ class Module extends \Foomo\Modules\ModuleBase
 	//---------------------------------------------------------------------------------------------
 	// ~ Constants
 	//---------------------------------------------------------------------------------------------
-
+	const VERSION = '0.2.0';
 	/**
 	 * the name of this module
 	 *
@@ -65,7 +65,7 @@ class Module extends \Foomo\Modules\ModuleBase
 	{
 		return array(
 			\Foomo\Modules\Resource\Module::getResource('Foomo.Backbone', self::VERSION),
-			\Foomo\Modules\Resource\Module::getResource('Foomo.Jasmine', self::VERSION)
+			\Foomo\Modules\Resource\Module::getResource('Foomo.Jasmine', '0.1.*')
 			// get a run mode independent folder var/<runMode>/test
 			// \Foomo\Modules\Resource\Fs::getVarResource(\Foomo\Modules\Resource\Fs::TYPE_FOLDER, 'test'),
 			// and a file in it

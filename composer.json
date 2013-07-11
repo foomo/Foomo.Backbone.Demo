@@ -1,0 +1,14 @@
+{
+    "name": "foomo\/backbone-demo",
+    "type": "foomo-module",
+    "require": {
+        "foomo\/backbone": "0.3.0",
+        "foomo\/jasmine": "0.3.0"
+    },
+    "license": "LGPL-3.0+",
+    "description": "a demo for learning purposes",
+    "extra": {
+        "moduleName": "Foomo.Backbone.Demo"
+    },
+    "target-dir": "Foomo.Backbone.Demo"
+}
