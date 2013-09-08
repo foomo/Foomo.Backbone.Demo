@@ -11,6 +11,16 @@ module Demo.Specs {
 			});
 		});
 	}
+	export var specifySimpleHTML = function() {
+		describe("A suite", function() {
+			var name = '<b>Hansi</b>'
+			it("is it " + name + "?", function() {
+				var view:Backbone.View = window['demoSimpleHTML'];
+				view.model.set('name', name);
+				expect(view.$('span').html()).toBe(name);
+			});
+		});
+	}
 
 	export var specifyMyComps = function() {
 		describe("An empty suite", function() {
