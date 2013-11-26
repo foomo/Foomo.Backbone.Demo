@@ -46,6 +46,9 @@ class Router extends \Foomo\Router {
 
 		\Foomo\Jasmine::addToDoc($doc);
 
+		\Foomo\JS\Bundle\Compiler::addBundleToDoc(__NAMESPACE__ . '\\JSBundles::demo');
+
+		/*
 		// less
 		// backbone
 		$doc->addJavascripts(array(
@@ -72,6 +75,7 @@ class Router extends \Foomo\Router {
 			,
 
 		));
+		*/
 	}
 	public static function run()
 	{
