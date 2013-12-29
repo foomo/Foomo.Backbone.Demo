@@ -19,6 +19,7 @@ class SimpleModel extends Backbone.Model {
 		// force custom auto validation
 		var ret = super.set.apply(this, arguments);
 		this.customValidate();
+        return this;
 	}
 	customValidate() {
 		return Validation.Validator.create(this, this.feedback)

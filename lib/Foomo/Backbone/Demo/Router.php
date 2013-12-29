@@ -46,36 +46,7 @@ class Router extends \Foomo\Router {
 
 		\Foomo\Jasmine::addToDoc($doc);
 
-		\Foomo\JS\Bundle\Compiler::addBundleToDoc(__NAMESPACE__ . '\\JSBundles::demo');
-
-		/*
-		// less
-		// backbone
-		$doc->addJavascripts(array(
-			\Foomo\JS::create(\Foomo\Backbone\Module::getHtdocsDir('js') . DIRECTORY_SEPARATOR . 'bootstrap.js')
-				->watch()
-				->compile()
-				->getOutputPath()
-			,
-			\Foomo\JS::create(\Foomo\Backbone\Demo\Module::getHtdocsDir('js') . DIRECTORY_SEPARATOR . 'bootstrap.js')
-				->watch()
-				->compile()
-				->getOutputPath()
-			,
-
-			\Foomo\TypeScript::create(\Foomo\Backbone\Demo\Module::getBaseDir('typescript') . DIRECTORY_SEPARATOR . 'demos.ts')
-				->displayCompilerErrors()
-				->addOutputFilter(
-					function($output) {
-						return str_replace('var Backbone;', '//var Backbone; <-- fucking fixed ot for FUCKING IE 8 ... FUCK!', $output);
-					}
-				)
-				->compile()
-				->getOutputPath()
-			,
-
-		));
-		*/
+		\Foomo\Bundle\Compiler::addBundleToDoc(__NAMESPACE__ . '\\JSBundles::demo');
 	}
 	public static function run()
 	{

@@ -55,18 +55,22 @@ module Demo.Specs {
 					label: "changed"
 				}
 			];
+
 			it("options from a model", function() {
 				view.model.set('options', options);
 				expect(view.$('select option').length).toBe(2);
 			});
+
 			it("select option", function() {
 				view.model.set('test', 'b');
 				expect(view.$('select').val()).toBe('b');
 			});
+
 			it("other options from a model", function() {
 				view.model.set('options', otherOptions);
 				expect(view.$('select option').length).toBe(3);
 			});
+
 			it("selected remained the same", function() {
 				expect(view.$('select').val()).toBe('b');
 			});
