@@ -1,5 +1,5 @@
-/// <reference path='../../Foomo.Backbone/typescript/components/bundle.d.ts' />
-///<reference path='../../Foomo.Jasmine/typescript/jasmine.d.ts' />
+///<reference path='../../Foomo.Backbone/typescript/components/bundle.d.ts' />
+///<reference path='../../Foomo.Jasmine/typescript/jasmine-2.0.0.d.ts' />
 ///<reference path='simple.ts' />
 ///<reference path='simpleHTML.ts' />
 ///<reference path='myComps.ts' />
