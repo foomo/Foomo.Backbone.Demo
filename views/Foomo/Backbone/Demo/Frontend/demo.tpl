@@ -13,22 +13,17 @@ $model->demo->template = file_get_contents($model->demo->template);
 $demo = $model->demo;
 
 $demoName = ucfirst($demo->name);
-
+$jsonTemplate = json_encode($demo->template);
 \Foomo\HTMLDocument::getInstance()
-	->addJavascriptToBody('
-		window.demo' .  $demoName . ' = new ' . $demoName . 'View({el:$(\'#demoApp' . $demoName . '\'), template:_.template(' . json_encode($demo->template) . ')});
-		if(Demo.Specs.specify' . $demoName . ') {
-			Demo.Specs.specify' . $demoName . '();
-			var jasmineEnv = jasmine.getEnv();
-			jasmineEnv.updateInterval = 1000;
-			var htmlReporter = new jasmine.HtmlReporter();
-			jasmineEnv.addReporter(htmlReporter);
-			jasmineEnv.specFilter = function(spec) {
-				return htmlReporter.specFilter(spec);
-			};
+	->addJavascriptToBody(<<<JS
+		window.demo{$demoName} = new {$demoName}View({
+			el:$('#demoApp{$demoName}'),
+			template:_.template({$jsonTemplate})
+		});
+		if(Demo.Specs.specify{$demoName}) {
+			Demo.Specs.specify{$demoName}();
 			$("#runJasmineSpec").click(function() {
-				jasmineEnv.execute();
-				$("#reporter").append($("#HTMLReporter"));
+				jasmine.getEnv().execute();
 			});
 		} else {
 			$("#runJasmineSpec").hide();
@@ -37,8 +32,8 @@ $demoName = ucfirst($demo->name);
 			e.preventDefault();
 			$(this).tab("show");
 		})
-
-	')
+JS
+)
 ;
 
 ?>
@@ -73,9 +68,6 @@ $demoName = ucfirst($demo->name);
 				<li>
 					<a href="#both" data-toggle="tab">Both</a>
 				</li>
-				<li>
-					<a href="#test" data-toggle="tab">Test</a>
-				</li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="template">
@@ -106,10 +98,10 @@ $demoName = ucfirst($demo->name);
 					</div>
 					<div class="clearfix"></div>
 				</div>
-				<div class="tab-pane" id="test">
-					<a id="runJasmineSpec" class="btn">Run Spec</a>
-					<div id="reporter"></div>
-				</div>
+			</div>
+			<div>
+				<a id="runJasmineSpec" class="btn">(Re)Run Spec</a>
+				<div id="html-reporter"></div>
 			</div>
 		</div>
 	</div>
