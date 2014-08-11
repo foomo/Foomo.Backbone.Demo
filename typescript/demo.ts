@@ -11,13 +11,13 @@ import Controls = Backbone.Components.Controls;
 class TagEditorFactory {
 	constructor(public prop:string) {
 	}
-	public factory(element:JQuery, view:Backbone.View):TagEditor {
+	public factory(element:JQuery, view:Backbone.View<Backbone.Model>):TagEditor {
 		var tagEditor:TagEditor = TagEditor.factory(element, view, this.prop);
 		return tagEditor;
 	}
 }
 
-class Tag extends Backbone.View {
+class Tag extends Backbone.View<Backbone.Model> {
 	static model = Backbone.Model;
 	constructor(options?) {
 		this.events = {
@@ -57,7 +57,7 @@ class TagEditor extends Comps.BaseComponent {
 	private handleDelete(data) {
 		this.view.model.set(this.attribute, _.without(this.view.model.get(this.attribute), data.get('value')));
 	}
-	public static factory(element:JQuery, view:Backbone.View, attribute:string):TagEditor {
+	public static factory(element:JQuery, view:Backbone.View<Backbone.Model>, attribute:string):TagEditor {
 		var comp:TagEditor;
 		if(element.length == 1) {
 			comp = new TagEditor({model:view.model});
@@ -87,7 +87,7 @@ class TagEditor extends Comps.BaseComponent {
 	public static map(selector, attribute) {
 		return new Comps.Mapping(
 			selector,
-			(element:JQuery, view:Backbone.View):TagEditor => {
+			(element:JQuery, view:Backbone.View<Backbone.Model>):TagEditor => {
 				var tagEditor:TagEditor = TagEditor.factory(element, view, attribute);
 				return tagEditor;
 			},

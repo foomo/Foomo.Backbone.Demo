@@ -1,5 +1,5 @@
-var SimpleHTMLView = Backbone.View.extend({
-	initialize: function(options) {
+class SimpleHTMLView extends Backbone.View<Backbone.Model> {
+	initialize(options) {
 		this.$el.html(options.template({}));
 		this.model = new Backbone.Model();
 
@@ -11,4 +11,4 @@ var SimpleHTMLView = Backbone.View.extend({
 
 		this.model.set('name', '<b>World</b>');
 	}
-});
+}

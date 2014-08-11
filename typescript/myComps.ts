@@ -1,4 +1,4 @@
-class MyCompsView extends Backbone.View {
+class MyCompsView extends Backbone.View<Backbone.Model> {
 	/**
 	 * this is a very nice use of typescript
 	 */

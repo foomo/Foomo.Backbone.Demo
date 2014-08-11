@@ -1,13 +1,13 @@
 /**
  * an item in my list
  */
-class ListItemView extends Backbone.View {
+class ListItemView extends Backbone.View<Backbone.Model> {
 	static model = Backbone.Model;
 	constructor(options) {
-		this.events = {
-			"click .delete" : "triggerDelete"
-		};
 		super(options);
+        this.delegateEvents({
+            "click .delete" : "triggerDelete"
+        });
 		var element = $('<li><span></span> <a class="btn btn-small delete">delete</a></li>').addClass(this.model.get('index')%2?'even':'odd');
 		this.$el.append(element);
 		element.find('span').text(this.model.get('value') + ' @index: ' + this.model.get('index'));
@@ -20,7 +20,7 @@ class ListItemView extends Backbone.View {
 /**
  * list demo view
  */
-class ListView extends Backbone.View {
+class ListView extends Backbone.View<Backbone.Model> {
 
 	initialize(options) {
 		this.$el.html(options.template({}));

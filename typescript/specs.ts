@@ -5,7 +5,7 @@ module Demo.Specs {
 		describe("A suite", function() {
 			it("is it hansi?", function() {
 				var name = 'Hansi'
-				var view:Backbone.View = window['demoSimple'];
+				var view:Backbone.View<Backbone.Model> = window['demoSimple'];
 				view.$('input').val(name).change();
 				expect(view.$('span').text()).toBe(name);
 			});
@@ -15,7 +15,7 @@ module Demo.Specs {
 		describe("A suite", function() {
 			var name = '<b>Hansi</b>'
 			it("is it " + name + "?", function() {
-				var view:Backbone.View = window['demoSimpleHTML'];
+				var view:Backbone.View<Backbone.Model> = window['demoSimpleHTML'];
 				view.model.set('name', name);
 				expect(view.$('span').html()).toBe(name);
 			});
@@ -89,7 +89,7 @@ module Demo.Specs {
 	}
 	export var specifyFeedback = function() {
 		describe("Feedback in your components", function() {
-			var view:Backbone.View = window['demoFeedback'];
+			var view:SimpleView = window['demoFeedback'];
 			it("without a template", function() {
 				var zip = '1234';
 				view.$('input[name=zip]').val(zip).change();

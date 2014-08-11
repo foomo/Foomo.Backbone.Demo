@@ -1,4 +1,4 @@
-class SelectView extends Backbone.View {
+class SelectView extends Backbone.View<Backbone.Model> {
 	constructor(options:any) {
 		super();
 		this.setElement(options.el);

@@ -36,8 +36,7 @@ class SimpleModel extends Backbone.Model {
 	}
 }
 
-class FeedbackView extends Backbone.View {
-	model: SimpleModel;
+class FeedbackView extends Backbone.View<SimpleModel> {
 	constructor(options) {
 		// boilerplate
 		super(options);
