@@ -146,10 +146,9 @@ class DemoModel extends Backbone.Model {
 }
 
 
-class DemoView extends Backbone.View {
+class DemoView extends Backbone.View<DemoModel> {
 
 	static robert = new Backbone.Model;
-	model:DemoModel;
 	public comps: {
 		inputFoo?:Controls.Input;
 		inputBar?:Controls.Input;
